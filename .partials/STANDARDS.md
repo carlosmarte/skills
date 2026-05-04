@@ -1,0 +1,3 @@
+- set strict budget range (max-min)
+- max range ensure to not exceed or get into infinite loop
+- min range ensure to response quicky or think before responding
