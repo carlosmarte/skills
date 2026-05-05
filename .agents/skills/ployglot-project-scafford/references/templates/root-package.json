@@ -1,0 +1,12 @@
+{
+  "name": "<slug>-polyglot",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Polyglot <slug> — TypeScript + Python twin packages",
+  "license": "MIT",
+  "workspaces": ["packages/ts"],
+  "scripts": {
+    "test": "npm test --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present"
+  }
+}

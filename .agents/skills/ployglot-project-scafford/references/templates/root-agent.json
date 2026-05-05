@@ -1,0 +1,33 @@
+{
+  "schema": "ployglot-agentmd-usages/v1",
+  "repo": "<repo-name>",
+  "kind": "polyglot-library-monorepo",
+  "layout": "packages",
+  "languages": ["ts", "py"],
+  "packages": [
+    {
+      "key": "<slug>",
+      "kind": "library",
+      "language": "ts",
+      "path": "packages/ts",
+      "agent_md": "packages/ts/.agent.md",
+      "install": "npm i <scope-prefix><slug>",
+      "publishable": true,
+      "twin_of": { "key": "<slug>", "language": "py" },
+      "stale": false
+    },
+    {
+      "key": "<slug>",
+      "kind": "library",
+      "language": "py",
+      "path": "packages/py",
+      "agent_md": "packages/py/.agent.md",
+      "install": "pip install <slug>",
+      "publishable": true,
+      "twin_of": { "key": "<slug>", "language": "ts" },
+      "stale": false
+    }
+  ],
+  "unclassified": [],
+  "stale_files": []
+}

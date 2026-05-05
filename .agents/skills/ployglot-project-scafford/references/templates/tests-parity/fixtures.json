@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "C0-placeholder",
+      "function": "VERSION_CHECK_PLACEHOLDER",
+      "inputs": {},
+      "expected": null,
+      "notes": "Placeholder fixture written by the ployglot-project-scafford skill. Replace with real cases once the public surface is defined. Both parity tests skip cases whose `function` is not implemented, so this entry parses cleanly without polluting the result."
+    }
+  ]
+}
