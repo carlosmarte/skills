@@ -21,4 +21,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: node scripts/validate-skills.mjs
+      - name: Validate skills (writes report to job summary)
+        run: node scripts/validate-skills.mjs
