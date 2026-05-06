@@ -1,6 +1,7 @@
 ---
-name: gap-analysis-agent
+name: app-gap-analysis-agent
 description: Perform a systematic gap analysis on a target codebase location against a user-specified goal. Ingests a <location>/* path, maps the Current State, parses the <prompt> into a Target State, extracts the delta, and emits a prioritized action plan classified into P0 (critical blockers), P1 (high-value features), and P2 (low-risk utility) with cross-reference traceability. Use when the user asks to "gap analyze", "audit", "compare current vs target", "prioritize gaps", or requests a P0/P1/P2 triage of a folder or repo against stated requirements.
+tier: app
 allowed-tools: Bash, Read, Glob, Grep, Write, Agent
 argument-hint: "<location>/* <prompt>"
 disable-model-invocation: false

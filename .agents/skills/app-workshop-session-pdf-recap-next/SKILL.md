@@ -1,6 +1,7 @@
 ---
-name: workshop-session-pdf-recap-next
+name: app-workshop-session-pdf-recap-next
 description: Extract content from a workshop session PDF and produce a structured recap focused on (1) what was learned, (2) next steps, and (3) possible enhancements. Ingests a single PDF file path, parses session material (slides, transcripts, exercises, Q&A), and emits a Markdown report with Learning Recap, Next Steps, and Enhancement Opportunities sections with page-level traceability. Use when the user asks to "summarize a workshop", "recap a training PDF", "pull next steps from a session deck", or provides a workshop/seminar/tutorial PDF and wants a learn-and-act summary.
+tier: app
 allowed-tools: Read, Glob, Bash, Write
 argument-hint: "<pdf_path> [output_path]"
 disable-model-invocation: false

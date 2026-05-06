@@ -1,6 +1,7 @@
 ---
-name: ployglot-project-scafford
+name: project-ployglot-project-scafford
 description: Scaffold a polyglot library project as TypeScript + Python twin packages under `packages/ts/` + `packages/py/`, with a shared `SPEC.md`, cross-language `tests/parity/fixtures.json`, side-by-side `examples/sdk/` + `examples/api/` documentation, per-package `Makefile`, and a root orchestrator that exposes `make ci`. Open-source friendly — no organization-specific paths or scopes baked in. Use when starting a new polyglot library, porting a single-language library to a twin, or auditing/regularizing an existing two-language repo against the canonical layout.
+tier: project
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion
 argument-hint: "<slug> [--scope @your-org] [--ts-only|--py-only|--both] [--dry-run]"
 disable-model-invocation: false

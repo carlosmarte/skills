@@ -1,6 +1,7 @@
 ---
-name: workshop-recaps-consolidate
+name: app-workshop-recaps-consolidate
 description: Consolidate multiple workshop-session recap Markdown files (typically produced by the workshop-session-pdf-recap-next skill) into a single unified report. Merges and deduplicates learnings across sessions and emits six sections — Consolidated Recap, Follow-ups, Action Items, Next Steps, Possible Enhancements, and Industry / External Viewpoint. The last section supplements the attendees' material with current external perspective via web research. Use when the user has a set of per-session recap files and wants one portfolio-level summary with an outside-in lens ("consolidate these recaps", "merge my workshop notes", "cross-session summary", "roll up action items").
+tier: app
 allowed-tools: Read, Glob, Grep, Bash, Write, WebSearch, WebFetch
 argument-hint: "<recap_path_or_glob> [<recap_path_or_glob> ...] [--output <path>] [--no-web]"
 disable-model-invocation: false

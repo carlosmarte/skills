@@ -1,6 +1,7 @@
 ---
-name: agent-creation
+name: org-agent-creation
 description: Scaffold and validate agent skill directories that conform to SKILL_SPEC.md. Use when the user asks to create a new agent skill, generate a SKILL.md file, scaffold a skill directory, or validate that existing skill directories meet the spec (frontmatter, naming rules, structure).
+tier: org
 ---
 
 # Agent Creation

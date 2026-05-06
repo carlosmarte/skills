@@ -1,6 +1,7 @@
 ---
-name: learn-context-window
+name: org-learn-context-window
 description: Distill the current conversation into a reusable command or skill artifact. Use when the user wants to capture a workflow they just executed (create a reusable slash command) or formalize a resolution/mistake/correction into a reusable skill so the same class of issue never recurs.
+tier: org
 ---
 
 # Learn from Context Window

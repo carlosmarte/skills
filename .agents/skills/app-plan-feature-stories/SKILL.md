@@ -1,6 +1,7 @@
 ---
-name: plan-feature-stories
+name: app-plan-feature-stories
 description: Decompose a piece of work into a 3-tier Feature > Story > Task plan tree, written to disk as self-contained markdown files. Use when the user asks to plan a feature, break down work, write an implementation plan, or create a task tree for a larger effort.
+tier: app
 ---
 
 # Plan: Feature > Stories > Tasks

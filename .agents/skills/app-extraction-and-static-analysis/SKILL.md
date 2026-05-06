@@ -1,6 +1,7 @@
 ---
-name: extraction-and-static-analysis
+name: app-extraction-and-static-analysis
 description: Run a read-only static-analysis-and-extraction pass on one or more information sources (code packages, document repositories, datasets, API specifications) and emit an 8-file structured reference package — README, sources, surface, capabilities, flow, dependencies, parity, references — with absolute path/URI traceability for every claim. With N=1 sources it acts as a solo public-surface survey; with N≥2 it adds a parity matrix that flags naming drift, shape/semantic drift, and one-sided entities. Use when the user asks to "extract", "statically analyze", "survey the public surface", "compare two libraries/specs", "document an unknown codebase", or wants a structured reference doc as input to downstream planning, migration, or audit work.
+tier: app
 allowed-tools: Read, Glob, Grep, Bash, Write
 metadata:
   argument-hint: "<source_path_or_uri> [<source_path_or_uri> ...] [--slug <slug>] [--output-dir <abs_path>]"

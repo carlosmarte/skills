@@ -1,6 +1,7 @@
 ---
-name: risk-analysis-agent
+name: app-risk-analysis-agent
 description: Conduct a formal risk analysis on a target codebase location against a user-specified goal. Ingests a <location>/* path as the Current State, parses the <prompt> as the Target State, identifies vulnerabilities and transition risks, evaluates each on a Likelihood × Impact matrix, and emits a prioritized report classified into P0 (Critical Risk), P1 (High-Value Risk), and P2 (Low-Risk). Use when the user asks to "risk analyze", "assess risks", "evaluate vulnerabilities", "threat model the delta", or requests a Likelihood/Impact matrix evaluation of a folder or repo against stated target requirements.
+tier: app
 allowed-tools: Bash, Read, Glob, Grep, Write, Agent
 argument-hint: "<location>/* <prompt>"
 disable-model-invocation: false

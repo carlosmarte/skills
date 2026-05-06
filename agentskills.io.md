@@ -16,7 +16,9 @@ This specification covers the mandatory directory structure, the `SKILL.md` file
 
 ### 2.1 Base Directory
 
-A skill MUST be encapsulated within a single parent directory. The name of this directory MUST perfectly match the `name` field defined in the skill's frontmatter.
+A skill MUST be encapsulated within a single parent directory. The directory name MUST take the form `<tier>-<slug>`, where `<tier>` matches the `tier` frontmatter value (one of `org`, `team`, `app`, `project`) and `<slug>` is a non-empty identifier following the same character rules as `name` (§3.1). The full `<tier>-<slug>` directory name MUST perfectly match the `name` field defined in the skill's frontmatter.
+
+Examples: `.agents/skills/org-agent-creation/`, `.agents/skills/app-gap-analysis-agent/`, `.agents/skills/project-ployglot-scaffold/`.
 
 ### 2.2 Directory Contents
 
@@ -43,12 +45,14 @@ The frontmatter defines the metadata loaded by the agent at startup.
 
 | Field | Required | Constraints & Validation Rules |
 | ----- | -------- | ------------------------------ |
-| `name` | **Yes** | 1 to 64 characters long. Allowed characters: Unicode lowercase alphanumeric (`a-z`, `0-9`) and hyphens (`-`). Cannot start or end with a hyphen. Cannot contain consecutive hyphens (`--`). Must exactly match the parent directory name. |
+| `name` | **Yes** | 1 to 64 characters long. Allowed characters: Unicode lowercase alphanumeric (`a-z`, `0-9`) and hyphens (`-`). Cannot start or end with a hyphen. Cannot contain consecutive hyphens (`--`). Must exactly match the parent directory name and therefore MUST take the form `<tier>-<slug>` (§2.1). |
 | `description` | **Yes** | 1 to 1024 characters long. Non-empty. Must describe _what_ the skill does and _when_ the agent should trigger it. Should include semantic keywords to help agents identify tasks. |
+| `tier` | **Yes** | One of `org`, `team`, `app`, or `project`. Governs lifecycle and dependency direction (see §3.3). |
 | `license` | No | Should be short (e.g., license name like `Apache-2.0` or a reference to a bundled `LICENSE.txt` file). |
 | `compatibility` | No | Maximum 500 characters. Indicates environment requirements (e.g., targeted product, system packages like `git` or `docker`, network access). |
 | `metadata` | No | Arbitrary string-to-string key-value mapping. Key names should be unique to avoid conflicts (e.g., `author`, `version`). |
 | `allowed-tools` | No | Space-delimited list of pre-approved tools the skill may use. _Note: This field is currently experimental._ |
+| `dependencies` | No | YAML list of other skills this one needs to execute. Each entry is `<name>[@<version-range>]` (in-repo) or `<owner>/<repo>#<name>[@<version-range>]` (cross-repo). See §3.3. |
 
 ### 3.2 Body Content
 
@@ -58,6 +62,45 @@ The Markdown body immediately following the frontmatter provides the instruction
 - **Content Recommendations:** Step-by-step instructions, input/output examples, and common edge cases.
 - **Length Constraints:** The main `SKILL.md` body SHOULD be kept under 500 lines to optimize context windows.
 - **References:** File references inside `SKILL.md` MUST use relative paths from the skill root (e.g., `scripts/extract.py`). File reference chains should be kept one level deep.
+
+### 3.3 Tier and Dependencies
+
+Skills are classified into four tiers governing lifecycle, change cadence, and the direction of allowed dependencies:
+
+| Tier | Purpose | Cadence |
+| ---- | ------- | ------- |
+| `org` | Cross-cutting governance — security, logging, observability, skill-authoring conventions. Slow-moving, audited. | Tagged releases. |
+| `team` | Departmental or guild-level conventions reused across the team's apps (shared style guides, review playbooks, scoped tooling standards). | Periodic releases. |
+| `app` | General-purpose workflows reusable across projects (planning, gap analysis, extraction). | Independent versioning. |
+| `project` | Domain- or repo-specific scaffolding and logic. Iterates rapidly, may float on `main`. | Fast iteration. |
+
+**Dependency direction (inversion is forbidden):**
+
+```
+project ──► app ──► team ──► org
+```
+
+A skill MAY declare `dependencies` on skills at its own tier or any tier above it (toward `org`). It MUST NOT depend on a lower tier. Concretely:
+
+- `org` MUST NOT depend on `team`, `app`, or `project`.
+- `team` MUST NOT depend on `app` or `project`.
+- `app` MUST NOT depend on `project`.
+
+Validators MUST reject inversions.
+
+**Dependency syntax:**
+
+```yaml
+dependencies:
+  - agent-creation@^1.0.0                  # in-repo, semver-ranged
+  - learn-context-window                    # in-repo, unpinned (validator warns)
+  - acme/governance#security-baseline@~2.1  # cross-repo via <owner>/<repo>#<name>
+```
+
+- **In-repo dependencies** MUST resolve to an existing sibling skill directory; missing targets are an error.
+- **Cross-repo dependencies** are not validated against the sibling tree (the registry/CLI resolves them at install time).
+- **Unpinned dependencies** (no `@<version-range>`) SHOULD trigger a validator warning. Pin against git tags of the form `<name>/v<X.Y.Z>` in the source repo.
+- Resolution at install time MUST be topological: every dependency is materialized before the dependent skill. Conflicts (two callers requiring incompatible ranges of the same dependency) MUST fail closed, not pick latest.
 
 ---
 
